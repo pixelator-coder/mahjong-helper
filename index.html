@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mahjong Helper</title>
+    <style>
+      :root {
+        color-scheme: light;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.5;
+        background: #f5f5f5;
+        color: #222;
+      }
+
+      main {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0.5rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(2.7rem, 1fr));
+        gap: 0.4rem;
+      }
+
+      h1 {
+        grid-column: 1 / -1;
+        margin: 0;
+        font-size: 1.5rem;
+        line-height: 1.2;
+      }
+
+      main > p {
+        grid-column: 1 / -1;
+        margin: 0 0 0.25rem;
+        font-size: 0.9rem;
+      }
+
+      .tile-group h2 {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      .tile-group,
+      .tile-grid {
+        display: contents;
+      }
+
+      .tile {
+        position: relative;
+        min-height: 3.25rem;
+        padding: 0.25rem;
+        border: 1px solid #b9c2cb;
+        border-radius: 0.5rem;
+        background: #fff;
+        color: #222;
+        font: inherit;
+        font-size: 0.75rem;
+        cursor: pointer;
+      }
+
+      .tile:hover {
+        border-color: #3568a8;
+        background: #f0f5fc;
+      }
+
+      .tile:focus-visible {
+        outline: 3px solid #3568a8;
+        outline-offset: 2px;
+      }
+
+      .tile-count {
+        position: absolute;
+        top: 0.15rem;
+        right: 0.15rem;
+        display: grid;
+        width: 1.1rem;
+        height: 1.1rem;
+        place-items: center;
+        border-radius: 50%;
+        background: #e4e8ed;
+        font-size: 0.7rem;
+        font-weight: 700;
+      }
+
+      .tile[data-count="1"],
+      .tile[data-count="2"],
+      .tile[data-count="3"],
+      .tile[data-count="4"] {
+        border-color: #3568a8;
+        background: #eaf2fc;
+      }
+
+      .tile-label {
+        display: block;
+        padding-top: 1rem;
+        white-space: nowrap;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Mahjong Helper</h1>
+      <p>Select tiles in your hand. Click a tile to cycle its count from 0 to 4.</p>
+      <section class="tile-group" aria-labelledby="wan-heading">
+        <h2 id="wan-heading">Wan</h2>
+        <div class="tile-grid">
+          <button class="tile" type="button" data-tile="1 wan" data-count="0" aria-label="1 wan, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">1 wan</span></button>
+          <button class="tile" type="button" data-tile="2 wan" data-count="0" aria-label="2 wan, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">2 wan</span></button>
+          <button class="tile" type="button" data-tile="3 wan" data-count="0" aria-label="3 wan, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">3 wan</span></button>
+          <button class="tile" type="button" data-tile="4 wan" data-count="0" aria-label="4 wan, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">4 wan</span></button>
+          <button class="tile" type="button" data-tile="5 wan" data-count="0" aria-label="5 wan, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">5 wan</span></button>
+          <button class="tile" type="button" data-tile="6 wan" data-count="0" aria-label="6 wan, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">6 wan</span></button>
+          <button class="tile" type="button" data-tile="7 wan" data-count="0" aria-label="7 wan, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">7 wan</span></button>
+          <button class="tile" type="button" data-tile="8 wan" data-count="0" aria-label="8 wan, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">8 wan</span></button>
+          <button class="tile" type="button" data-tile="9 wan" data-count="0" aria-label="9 wan, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">9 wan</span></button>
+        </div>
+      </section>
+      <section class="tile-group" aria-labelledby="tiao-heading">
+        <h2 id="tiao-heading">Tiao</h2>
+        <div class="tile-grid">
+          <button class="tile" type="button" data-tile="1 tiao" data-count="0" aria-label="1 tiao, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">1 tiao</span></button>
+          <button class="tile" type="button" data-tile="2 tiao" data-count="0" aria-label="2 tiao, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">2 tiao</span></button>
+          <button class="tile" type="button" data-tile="3 tiao" data-count="0" aria-label="3 tiao, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">3 tiao</span></button>
+          <button class="tile" type="button" data-tile="4 tiao" data-count="0" aria-label="4 tiao, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">4 tiao</span></button>
+          <button class="tile" type="button" data-tile="5 tiao" data-count="0" aria-label="5 tiao, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">5 tiao</span></button>
+          <button class="tile" type="button" data-tile="6 tiao" data-count="0" aria-label="6 tiao, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">6 tiao</span></button>
+          <button class="tile" type="button" data-tile="7 tiao" data-count="0" aria-label="7 tiao, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">7 tiao</span></button>
+          <button class="tile" type="button" data-tile="8 tiao" data-count="0" aria-label="8 tiao, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">8 tiao</span></button>
+          <button class="tile" type="button" data-tile="9 tiao" data-count="0" aria-label="9 tiao, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">9 tiao</span></button>
+        </div>
+      </section>
+      <section class="tile-group" aria-labelledby="tong-heading">
+        <h2 id="tong-heading">Tong</h2>
+        <div class="tile-grid">
+          <button class="tile" type="button" data-tile="1 tong" data-count="0" aria-label="1 tong, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">1 tong</span></button>
+          <button class="tile" type="button" data-tile="2 tong" data-count="0" aria-label="2 tong, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">2 tong</span></button>
+          <button class="tile" type="button" data-tile="3 tong" data-count="0" aria-label="3 tong, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">3 tong</span></button>
+          <button class="tile" type="button" data-tile="4 tong" data-count="0" aria-label="4 tong, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">4 tong</span></button>
+          <button class="tile" type="button" data-tile="5 tong" data-count="0" aria-label="5 tong, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">5 tong</span></button>
+          <button class="tile" type="button" data-tile="6 tong" data-count="0" aria-label="6 tong, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">6 tong</span></button>
+          <button class="tile" type="button" data-tile="7 tong" data-count="0" aria-label="7 tong, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">7 tong</span></button>
+          <button class="tile" type="button" data-tile="8 tong" data-count="0" aria-label="8 tong, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">8 tong</span></button>
+          <button class="tile" type="button" data-tile="9 tong" data-count="0" aria-label="9 tong, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">9 tong</span></button>
+        </div>
+      </section>
+      <section class="tile-group" aria-labelledby="honors-heading">
+        <h2 id="honors-heading">Winds and dragons</h2>
+        <div class="tile-grid">
+          <button class="tile" type="button" data-tile="east" data-count="0" aria-label="East, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">East</span></button>
+          <button class="tile" type="button" data-tile="south" data-count="0" aria-label="South, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">South</span></button>
+          <button class="tile" type="button" data-tile="west" data-count="0" aria-label="West, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">West</span></button>
+          <button class="tile" type="button" data-tile="north" data-count="0" aria-label="North, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">North</span></button>
+          <button class="tile" type="button" data-tile="white dragon" data-count="0" aria-label="White dragon, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">White</span></button>
+          <button class="tile" type="button" data-tile="green dragon" data-count="0" aria-label="Green dragon, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">Green</span></button>
+          <button class="tile" type="button" data-tile="red dragon" data-count="0" aria-label="Red dragon, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">Red</span></button>
+        </div>
+      </section>
+    </main>
+    <script>
+      document.querySelectorAll(".tile").forEach((button) => {
+        button.addEventListener("click", () => {
+          const count = (Number(button.dataset.count) + 1) % 5;
+          button.dataset.count = count;
+          button.querySelector(".tile-count").textContent = count;
+          button.setAttribute("aria-label", `${button.dataset.tile}, ${count} in hand`);
+        });
+      });
+    </script>
+  </body>
+</html>
