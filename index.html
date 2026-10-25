@@ -43,6 +43,24 @@
         font-size: 0.9rem;
       }
 
+      #selected-tiles-section {
+        grid-column: 1 / -1;
+      }
+
+      #selected-tiles-section h2 {
+        margin: 0;
+        font-size: 1rem;
+      }
+
+      #selected-tiles {
+        margin: 0.25rem 0 0;
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+        background: #fff;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+      }
+
       .tile-group h2 {
         position: absolute;
         width: 1px;
@@ -115,7 +133,10 @@
   <body>
     <main>
       <h1>Mahjong Helper</h1>
-      <p>Select tiles in your hand. Click a tile to cycle its count from 0 to 4.</p>
+      <p>
+        Select tiles by clicking to cycle their count from 0 to 4.
+        Tiles in hand: <output id="hand-total" aria-live="polite">0</output>
+      </p>
       <section class="tile-group" aria-labelledby="wan-heading">
         <h2 id="wan-heading">Wan</h2>
         <div class="tile-grid">
@@ -161,23 +182,35 @@
       <section class="tile-group" aria-labelledby="honors-heading">
         <h2 id="honors-heading">Winds and dragons</h2>
         <div class="tile-grid">
-          <button class="tile" type="button" data-tile="east" data-count="0" aria-label="East, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">East</span></button>
-          <button class="tile" type="button" data-tile="south" data-count="0" aria-label="South, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">South</span></button>
-          <button class="tile" type="button" data-tile="west" data-count="0" aria-label="West, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">West</span></button>
-          <button class="tile" type="button" data-tile="north" data-count="0" aria-label="North, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">North</span></button>
-          <button class="tile" type="button" data-tile="white dragon" data-count="0" aria-label="White dragon, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">White</span></button>
-          <button class="tile" type="button" data-tile="green dragon" data-count="0" aria-label="Green dragon, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">Green</span></button>
-          <button class="tile" type="button" data-tile="red dragon" data-count="0" aria-label="Red dragon, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">Red</span></button>
+          <button class="tile" type="button" data-tile="east" data-array-tile="10 East" data-count="0" aria-label="East, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">East</span></button>
+          <button class="tile" type="button" data-tile="south" data-array-tile="10 South" data-count="0" aria-label="South, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">South</span></button>
+          <button class="tile" type="button" data-tile="west" data-array-tile="10 West" data-count="0" aria-label="West, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">West</span></button>
+          <button class="tile" type="button" data-tile="north" data-array-tile="10 North" data-count="0" aria-label="North, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">North</span></button>
+          <button class="tile" type="button" data-tile="white dragon" data-array-tile="11 White" data-count="0" aria-label="White dragon, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">White</span></button>
+          <button class="tile" type="button" data-tile="green dragon" data-array-tile="11 Green" data-count="0" aria-label="Green dragon, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">Green</span></button>
+          <button class="tile" type="button" data-tile="red dragon" data-array-tile="11 Red" data-count="0" aria-label="Red dragon, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">Red</span></button>
         </div>
+      </section>
+      <section id="selected-tiles-section" aria-labelledby="selected-tiles-heading">
+        <h2 id="selected-tiles-heading">Selected tiles</h2>
+        <pre id="selected-tiles">[]</pre>
       </section>
     </main>
     <script>
+      const selectedTiles = [];
+
       document.querySelectorAll(".tile").forEach((button) => {
         button.addEventListener("click", () => {
           const count = (Number(button.dataset.count) + 1) % 5;
           button.dataset.count = count;
           button.querySelector(".tile-count").textContent = count;
           button.setAttribute("aria-label", `${button.dataset.tile}, ${count} in hand`);
+
+          const currentTiles = [...document.querySelectorAll(".tile")]
+            .flatMap((tile) => Array(Number(tile.dataset.count)).fill(tile.dataset.arrayTile || tile.dataset.tile));
+          selectedTiles.splice(0, selectedTiles.length, ...currentTiles);
+          document.querySelector("#hand-total").textContent = selectedTiles.length;
+          document.querySelector("#selected-tiles").textContent = JSON.stringify(selectedTiles);
         });
       });
     </script>
