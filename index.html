@@ -115,7 +115,10 @@
   <body>
     <main>
       <h1>Mahjong Helper</h1>
-      <p>Select tiles in your hand. Click a tile to cycle its count from 0 to 4.</p>
+      <p>
+        Select tiles by clicking to cycle their count from 0 to 4.
+        Tiles in hand: <output id="hand-total" aria-live="polite">0</output>
+      </p>
       <section class="tile-group" aria-labelledby="wan-heading">
         <h2 id="wan-heading">Wan</h2>
         <div class="tile-grid">
@@ -178,6 +181,10 @@
           button.dataset.count = count;
           button.querySelector(".tile-count").textContent = count;
           button.setAttribute("aria-label", `${button.dataset.tile}, ${count} in hand`);
+
+          const total = [...document.querySelectorAll(".tile")]
+            .reduce((sum, tile) => sum + Number(tile.dataset.count), 0);
+          document.querySelector("#hand-total").textContent = total;
         });
       });
     </script>
