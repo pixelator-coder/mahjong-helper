@@ -43,6 +43,24 @@
         font-size: 0.8rem;
       }
 
+      #recommendations-section {
+        grid-column: 1 / -1;
+      }
+
+      #recommendations-section h2 {
+        margin: 0;
+        font-size: 0.85rem;
+      }
+
+      #recommendations {
+        margin: 0.25rem 0 0;
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+        background: #fff;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+      }
+
       #selected-tiles-section {
         grid-column: 1 / -1;
       }
@@ -195,24 +213,46 @@
         <h2 id="selected-tiles-heading">Selected tiles</h2>
         <pre id="selected-tiles">[]</pre>
       </section>
+      <section id="recommendations-section" aria-labelledby="recommendations-heading">
+        <h2 id="recommendations-heading">Recommendations</h2>
+        <pre id="recommendations">[]</pre>
+      </section>
     </main>
     <script>
       const selectedTiles = [];
+      const tileButtons = document.querySelectorAll(".tile");
 
-      document.querySelectorAll(".tile").forEach((button) => {
+      tileButtons.forEach((button) => {
         button.addEventListener("click", () => {
-          const count = (Number(button.dataset.count) + 1) % 5;
-          button.dataset.count = count;
-          button.querySelector(".tile-count").textContent = count;
-          button.setAttribute("aria-label", `${button.dataset.tile}, ${count} in hand`);
+          const nextCount = (Number(button.dataset.count) + 1) % 5;
+          button.dataset.count = nextCount;
+          button.querySelector(".tile-count").textContent = nextCount;
+          button.setAttribute("aria-label", `${button.dataset.tile}, ${nextCount} in hand`);
 
-          const currentTiles = [...document.querySelectorAll(".tile")]
-            .flatMap((tile) => Array(Number(tile.dataset.count)).fill(tile.dataset.arrayTile || tile.dataset.tile));
-          selectedTiles.splice(0, selectedTiles.length, ...currentTiles);
+          const currentTiles = [...tileButtons].flatMap((tile) => {
+            const count = Number(tile.dataset.count);
+            const tileValue = tile.dataset.arrayTile || tile.dataset.tile;
+
+            return Array(count).fill(tileValue);
+          });
+
+          selectedTiles.length = 0;
+          selectedTiles.push(...currentTiles);
+          if (selectedTiles.length === 13) {
+            const recommendations = getRecommendations(selectedTiles);
+            document.querySelector("#recommendations").textContent = JSON.stringify(recommendations);
+          } else {
+            document.querySelector("#recommendations").textContent = "No recommendations available.";
+          }
+
           document.querySelector("#hand-total").textContent = selectedTiles.length;
           document.querySelector("#selected-tiles").textContent = JSON.stringify(selectedTiles);
         });
       });
+
+      function getRecommendations(selectedTiles) {
+        return ["Recommendation 1", "Recommendation 2"];
+      }
     </script>
   </body>
 </html>
