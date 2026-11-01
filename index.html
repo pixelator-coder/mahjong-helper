@@ -209,13 +209,13 @@
           <button class="tile" type="button" data-tile="red dragon" data-array-tile="11 Red" data-count="0" aria-label="Red dragon, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">Red</span></button>
         </div>
       </section>
-      <section id="selected-tiles-section" aria-labelledby="selected-tiles-heading">
+      <!-- <section id="selected-tiles-section" aria-labelledby="selected-tiles-heading">
         <h2 id="selected-tiles-heading">Selected tiles</h2>
         <pre id="selected-tiles">[]</pre>
-      </section>
+      </section> -->
       <section id="recommendations-section" aria-labelledby="recommendations-heading">
         <h2 id="recommendations-heading">Recommendations</h2>
-        <pre id="recommendations">Select 13 tiles to see recommendations.</pre>
+        <p id="recommendations">Select 13 tiles to see recommendations.</p>
       </section>
     </main>
     <script>
@@ -240,13 +240,12 @@
           selectedTiles.push(...currentTiles);
           if (selectedTiles.length === 13) {
             const recommendations = getRecommendations(selectedTiles);
-            document.querySelector("#recommendations").textContent = JSON.stringify(recommendations);
+            document.querySelector("#recommendations").textContent = recommendations.join(", ");
           } else {
             document.querySelector("#recommendations").textContent = "Select 13 tiles to see recommendations.";
           }
 
           document.querySelector("#hand-total").textContent = selectedTiles.length;
-          document.querySelector("#selected-tiles").textContent = JSON.stringify(selectedTiles);
         });
       });
 
