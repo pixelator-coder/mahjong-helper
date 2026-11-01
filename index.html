@@ -242,7 +242,7 @@
             const recommendations = getRecommendations(selectedTiles);
             document.querySelector("#recommendations").textContent = JSON.stringify(recommendations);
           } else {
-            document.querySelector("#recommendations").textContent = "No recommendations available.";
+            document.querySelector("#recommendations").textContent = "Select 13 tiles to see recommendations";
           }
 
           document.querySelector("#hand-total").textContent = selectedTiles.length;
