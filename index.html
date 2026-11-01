@@ -61,24 +61,6 @@
         overflow-wrap: anywhere;
       }
 
-      #selected-tiles-section {
-        grid-column: 1 / -1;
-      }
-
-      #selected-tiles-section h2 {
-        margin: 0;
-        font-size: 0.85rem;
-      }
-
-      #selected-tiles {
-        margin: 0.25rem 0 0;
-        padding: 0.5rem;
-        border-radius: 0.25rem;
-        background: #fff;
-        white-space: pre-wrap;
-        overflow-wrap: anywhere;
-      }
-
       .tile-group h2 {
         position: absolute;
         width: 1px;
@@ -209,17 +191,13 @@
           <button class="tile" type="button" data-tile="red dragon" data-array-tile="11 Red" data-count="0" aria-label="Red dragon, 0 in hand"><span class="tile-count" aria-hidden="true">0</span><span class="tile-label">Red</span></button>
         </div>
       </section>
-      <!-- <section id="selected-tiles-section" aria-labelledby="selected-tiles-heading">
-        <h2 id="selected-tiles-heading">Selected tiles</h2>
-        <pre id="selected-tiles">[]</pre>
-      </section> -->
       <section id="recommendations-section" aria-labelledby="recommendations-heading">
         <h2 id="recommendations-heading">Recommendations</h2>
         <p id="recommendations">Select 13 tiles to see recommendations.</p>
       </section>
     </main>
     <script>
-      const selectedTiles = [];
+      const handTiles = [];
       const tileButtons = document.querySelectorAll(".tile");
 
       tileButtons.forEach((button) => {
@@ -236,20 +214,20 @@
             return Array(count).fill(tileValue);
           });
 
-          selectedTiles.length = 0;
-          selectedTiles.push(...currentTiles);
-          if (selectedTiles.length === 13) {
-            const recommendations = getRecommendations(selectedTiles);
+          handTiles.length = 0;
+          handTiles.push(...currentTiles);
+          if (handTiles.length === 13) {
+            const recommendations = getRecommendations(handTiles);
             document.querySelector("#recommendations").textContent = recommendations.join(", ");
           } else {
             document.querySelector("#recommendations").textContent = "Select 13 tiles to see recommendations.";
           }
 
-          document.querySelector("#hand-total").textContent = selectedTiles.length;
+          document.querySelector("#hand-total").textContent = handTiles.length;
         });
       });
 
-      function getRecommendations(selectedTiles) {
+      function getRecommendations(handTiles) {
         return ["Recommendation 1", "Recommendation 2"];
       }
     </script>
