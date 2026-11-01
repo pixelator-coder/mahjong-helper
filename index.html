@@ -215,7 +215,7 @@
       </section>
       <section id="recommendations-section" aria-labelledby="recommendations-heading">
         <h2 id="recommendations-heading">Recommendations</h2>
-        <pre id="recommendations">[]</pre>
+        <pre id="recommendations">Select 13 tiles to see recommendations.</pre>
       </section>
     </main>
     <script>
@@ -242,7 +242,7 @@
             const recommendations = getRecommendations(selectedTiles);
             document.querySelector("#recommendations").textContent = JSON.stringify(recommendations);
           } else {
-            document.querySelector("#recommendations").textContent = "Select 13 tiles to see recommendations";
+            document.querySelector("#recommendations").textContent = "Select 13 tiles to see recommendations.";
           }
 
           document.querySelector("#hand-total").textContent = selectedTiles.length;
